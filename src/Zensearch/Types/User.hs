@@ -7,6 +7,7 @@ import           Data.Set               (Set)
 import           Data.Text              (Text)
 import           Data.Time.Clock        (UTCTime)
 import           Data.UUID              (UUID)
+import           Zensearch.Record       (Record (..), field)
 import           Zensearch.Types.Common (OrganizationID, UserID)
 
 
@@ -53,3 +54,47 @@ instance FromJSON User where
                      <*> obj .:  "tags"
                      <*> obj .:  "suspended"
                      <*> obj .:  "role"
+
+instance Record User where
+  project "_id"             = Just $ field userId
+  project "url"             = Just $ field userUrl
+  project "external_id"     = Just $ field userExternalId
+  project "name"            = Just $ field userName
+  project "alias"           = Just $ field userAlias
+  project "created_at"      = Just $ field userCreatedAt
+  project "active"          = Just $ field userActive
+  project "verified"        = Just $ field userVerified
+  project "shared"          = Just $ field userShared
+  project "locale"          = Just $ field userLocale
+  project "timezone"        = Just $ field userTimezone
+  project "last_login_at"   = Just $ field userLastLoginAt
+  project "email"           = Just $ field userEmail
+  project "phone"           = Just $ field userPhone
+  project "signature"       = Just $ field userSignature
+  project "organization_id" = Just $ field userOrganizationId
+  project "tags"            = Just $ field userTags
+  project "suspended"       = Just $ field userSuspended
+  project "role"            = Just $ field userRole
+  project _                 = Nothing
+
+  fieldnames _ = [
+      "_id",
+      "url",
+      "external_id",
+      "name",
+      "alias",
+      "created_at",
+      "active",
+      "verified",
+      "shared",
+      "locale",
+      "timezone",
+      "last_login_at",
+      "email",
+      "phone",
+      "signature",
+      "organization_id",
+      "tags",
+      "suspended",
+      "role"
+    ]

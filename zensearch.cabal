@@ -15,13 +15,17 @@ library
   default-language:    Haskell2010
   ghc-options:         -Wall
   hs-source-dirs:      src
-  exposed-modules:     Zensearch.Types
+  exposed-modules:     Zensearch.Parsable
+                     , Zensearch.Record
+                     , Zensearch.Types
                      , Zensearch.Types.Common
                      , Zensearch.Types.Organization
                      , Zensearch.Types.Ticket
                      , Zensearch.Types.User
   build-depends:       base >= 4.7 && < 5
                      , aeson
+                     , attoparsec
+                     , attoparsec-iso8601
                      , containers
                      , text
                      , time
@@ -49,7 +53,12 @@ test-suite spec
                      , aeson
                      , bytestring
                      , heredoc
-  other-modules:       Zensearch.Types.OrganizationSpec
+                     , text
+                     , time
+                     , uuid
+  other-modules:       Zensearch.ParsableSpec
+                     , Zensearch.RecordSpec
+                     , Zensearch.Types.OrganizationSpec
                      , Zensearch.Types.TicketSpec
                      , Zensearch.Types.UserSpec
 
