@@ -15,8 +15,18 @@ library
   default-language:    Haskell2010
   ghc-options:         -Wall
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Zensearch.Types
+                     , Zensearch.Types.Common
+                     , Zensearch.Types.Organization
+                     , Zensearch.Types.Ticket
+                     , Zensearch.Types.User
   build-depends:       base >= 4.7 && < 5
+                     , aeson
+                     , containers
+                     , text
+                     , time
+                     , uuid
+  default-extensions: StrictData
 
 executable zensearch
   default-language:    Haskell2010
@@ -36,6 +46,12 @@ test-suite spec
                      , zensearch
                      , hspec
                      , QuickCheck
+                     , aeson
+                     , bytestring
+                     , heredoc
+  other-modules:       Zensearch.Types.OrganizationSpec
+                     , Zensearch.Types.TicketSpec
+                     , Zensearch.Types.UserSpec
 
 source-repository head
   type:     git
