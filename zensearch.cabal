@@ -1,14 +1,11 @@
 name:                zensearch
 version:             0.1.0.0
--- synopsis:
--- description:
-homepage:            https://github.com/githubuser/zensearch
-license:             BSD3
+homepage:            https://github.com/jessekempf/zensearch
+license:             AllRightsReserved
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2020 Author name here
-category:            Acme
+author:              Jesse Kempf
+maintainer:          jessekempf@gmail.com
+copyright:           2020 Jesse Kempf
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
@@ -42,4 +39,4 @@ test-suite spec
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/zensearch
+  location: https://github.com/jessekempf/zensearch
