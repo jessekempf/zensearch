@@ -23,10 +23,10 @@ spec =
         let sr              = SimpleRecord 2
             (Just intField) = project "int"
 
-        fieldEq intField sr "2" `shouldBe` Right True
+        fieldMatch intField sr "2" `shouldBe` Right True
 
       it "supports Int inequality" $ do
         let sr              = SimpleRecord 2
             (Just intField) = project "int"
 
-        fieldEq intField sr "3" `shouldBe` Right False
+        fieldMatch intField sr "3" `shouldBe` Right False

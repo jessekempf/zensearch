@@ -15,7 +15,8 @@ library
   default-language:    Haskell2010
   ghc-options:         -Wall
   hs-source-dirs:      src
-  exposed-modules:     Zensearch.Parsable
+  exposed-modules:     Zensearch.Matchable
+                     , Zensearch.Parsable
                      , Zensearch.Record
                      , Zensearch.Types
                      , Zensearch.Types.Common

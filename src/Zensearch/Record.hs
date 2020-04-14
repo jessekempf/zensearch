@@ -1,19 +1,25 @@
 {-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE FlexibleContexts          #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
+{-# LANGUAGE TypeFamilies              #-}
 
 module Zensearch.Record (
   Field,
   field,
-  fieldEq,
+  fieldMatch,
   fieldView,
   Record(..)
 ) where
 
-import           Data.Proxy         (Proxy)
-import           Data.Text          (Text, pack)
-import           Zensearch.Parsable (Parsable (..))
+import           Data.Proxy          (Proxy)
+import           Data.Text           (Text, pack)
+import           Zensearch.Matchable (Matchable (..))
+import           Zensearch.Parsable  (Parsable (..))
 
-{- A Field lets us operate on a record's field in a general but typesafe manner.
+
+{- A Field lets us operate on a record's field in a general but typesafe manner. It contains
+-- a parser for a match argument, or `Comparand a`, and a function to retrieve the value of the
+-- field.
 -- We hide the type of the field's value behind an existential so we can defer type-aware
 -- operations to runtime instead of needing to know all types at compile time.
 -- One consequence of this is that is is not possible to write a
@@ -27,19 +33,19 @@ import           Zensearch.Parsable (Parsable (..))
 -- have a function that returns a `Field User UserID` _and_ a `Field User UUID`.
 -}
 
-data Field record = forall a. (Parsable a, Eq a, Show a) => Field (record -> a)
+data Field record = forall a. (Matchable a, Show a) => Field (Text -> Either Text (Comparand a)) (record -> a)
 
 
-field :: forall record a. (Record record, Parsable a, Eq a, Show a) => (record -> a) -> Field record
-field = Field
+field :: forall record a. (Record record, Parsable (Comparand a), Matchable a, Show a) => (record -> a) -> Field record
+field = Field parse
 
-fieldEq :: Record record => Field record -> record -> Text -> Either Text Bool
-fieldEq (Field getField) record other = do
-  parsed <- parse other
-  return $ parsed == getField record
+fieldMatch :: Record record => Field record -> record -> Text -> Either Text Bool
+fieldMatch (Field parse' getField) record other = do
+  parsed <- parse' other
+  return $ getField record `match` parsed
 
 fieldView :: Record record => Field record -> record -> Text
-fieldView (Field getField) record = tshow $ getField record
+fieldView (Field _ getField) record = tshow $ getField record
   where
     tshow = pack . show
 
