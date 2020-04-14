@@ -91,7 +91,7 @@ main =
     pref = prefs (showHelpOnEmpty <> showHelpOnError)
     opts = info (parseArguments <**> helper) fullDesc
 
-    printList = mapM_ (\x -> putStr "  - " >> print x)
+    printList = mapM_ (\x -> putStr "  - " >> putStrLn (unpack x))
 
     tshow = pack . show
 
