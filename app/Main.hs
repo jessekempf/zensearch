@@ -15,7 +15,9 @@ import           Zensearch.Record    (Field, Record, fieldMatch, fieldnames,
 import qualified Zensearch.Types     as Types
 
 
-
+{-
+-- Data model
+-}
 newtype FieldName  = FieldName  Text deriving Show
 newtype FieldValue = FieldValue Text deriving Show
 
@@ -23,6 +25,9 @@ data Table   = Organization | Ticket | User deriving (Read, Show)
 
 data Command = Enumerate | List Table | Match Table FieldName FieldValue deriving Show
 
+{-
+-- Argument parsing
+--}
 parseArguments :: Parser Command
 parseArguments = enumerate <|> list <|> match
   where
@@ -39,7 +44,9 @@ parseArguments = enumerate <|> list <|> match
     match     = subparser $ command "match"     $ info matchArgs $ progDesc "Find all matching records for a table"
 
 
-
+{-
+-- Helper functions
+-}
 tableSearch :: forall record m. (MonadFail m, Record record) => FieldName -> FieldValue -> [record] -> m [record]
 tableSearch (FieldName name) (FieldValue val) table =
   case project name of
@@ -70,6 +77,9 @@ validate (Left err)  = fail err
 validate (Right val) = pure val
 
 
+{-
+-- Glue
+-}
 main :: IO ()
 main =
   customExecParser pref opts >>= \case
