@@ -40,6 +40,10 @@ executable zensearch
   main-is:             Main.hs
   build-depends:       base
                      , zensearch
+                     , aeson
+                     , optparse-applicative
+                     , pretty-show
+                     , text
 
 test-suite spec
   default-language:    Haskell2010

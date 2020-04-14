@@ -1,3 +1,4 @@
+{-# LANGUAGE AllowAmbiguousTypes       #-}
 {-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE FlexibleContexts          #-}
 {-# LANGUAGE ScopedTypeVariables       #-}
@@ -11,7 +12,6 @@ module Zensearch.Record (
   Record(..)
 ) where
 
-import           Data.Proxy          (Proxy)
 import           Data.Text           (Text, pack)
 import           Zensearch.Matchable (Matchable (..))
 import           Zensearch.Parsable  (Parsable (..))
@@ -51,4 +51,4 @@ fieldView (Field _ getField) record = tshow $ getField record
 
 class Record record where
   project    :: Text -> Maybe (Field record)
-  fieldnames :: Proxy record -> [Text]
+  fieldnames :: [Text]

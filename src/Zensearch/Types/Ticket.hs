@@ -68,7 +68,7 @@ instance Record Ticket where
   project "via"             = Just $ field ticketVia
   project _                 = Nothing
 
-  fieldnames _ = [
+  fieldnames = [
       "_id",
       "url",
       "external_id",

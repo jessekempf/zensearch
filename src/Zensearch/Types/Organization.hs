@@ -47,7 +47,7 @@ instance Record Organization where
   project "tags"           = Just $ field orgTags
   project _                = Nothing
 
-  fieldnames _ = [
+  fieldnames = [
       "_id",
       "url",
       "external_id",

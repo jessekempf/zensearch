@@ -77,7 +77,7 @@ instance Record User where
   project "role"            = Just $ field userRole
   project _                 = Nothing
 
-  fieldnames _ = [
+  fieldnames = [
       "_id",
       "url",
       "external_id",
